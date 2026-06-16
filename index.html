@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot AI - Intelligent Assistant</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fa-solid fa-robot"></i>
+                    <span>Robot AI</span>
+                </div>
+                <button id="new-chat-btn" class="new-chat-btn">
+                    <i class="fa-solid fa-plus"></i> New Conversation
+                </button>
+            </div>
+            <div class="history-section">
+                <h3><i class="fa-solid fa-clock-rotate-left"></i> Recent Chats</h3>
+                <ul id="history-list">
+                    </ul>
+            </div>
+        </aside>
+
+        <main class="chat-area">
+            <header class="chat-header">
+                <h2><i class="fa-solid fa-sparkles"></i> Robot AI V2.5 </h2>
+            </header>
+
+            <div class="chat-container" id="chat-container">
+                <div class="message ai-message">
+                    <div class="avatar"><i class="fa-solid fa-robot"></i></div>
+                    <div class="message-content">สวัสดีค่ะ! ฉันคือ Robot AI มีอะไรให้ฉันช่วยในวันนี้คะ?</div>
+                </div>
+            </div>
+
+            <footer class="chat-footer">
+                <form id="chat-form">
+                    <div class="input-wrapper">
+                        <input type="text" id="user-input" placeholder="พิมพ์ข้อความของคุณที่นี่..." autocomplete="off" required>
+                        <button type="submit" id="send-btn">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </form>
+                <p class="disclaimer">Robot AI can make mistakes.</p>
+            </footer>
+        </main>
+    </div>
+<!-- เพิ่มไลบรารี Marked.js สำหรับแปลง Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
