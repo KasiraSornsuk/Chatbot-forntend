@@ -263,3 +263,100 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #3b4254;
 }
+
+/* ==========================================================================
+   📱 ส่วนรองรับหน้าจอมือถือและแท็บเล็ต (Responsive Design สำหรับหน้าจอ < 768px)
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+    /* เปลี่ยนเลย์เอาต์หลักเป็นแนวตั้งเพื่อให้เหมาะกับมือถือ */
+    .app-container {
+        flex-direction: column;
+    }
+
+    /* ปรับจากแถบ Sidebar ด้านซ้าย ให้ขึ้นไปเป็นแถบบาร์ด้านบนแทน */
+    .sidebar {
+        width: 100%;
+        height: auto;
+        padding: 12px 20px;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .sidebar-header {
+        margin-bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .logo {
+        margin-bottom: 0;
+        font-size: 1.2rem;
+    }
+
+    .new-chat-btn {
+        width: auto;
+        padding: 8px 14px;
+        font-size: 0.85rem;
+    }
+
+    /* ซ่อนแถบประวัติแชตเก่าบนมือถือ เพื่อไม่ให้บดบังพื้นที่แชตปัจจุบัน */
+    .history-section {
+        display: none; 
+    }
+
+    /* คำนวณพื้นที่แชตหลักให้พอดีกับความสูงหน้าจอที่หักแถบบาร์ด้านบนออกแล้ว */
+    .chat-area {
+        height: calc(100vh - 65px); 
+    }
+
+    .chat-header {
+        padding: 12px 20px;
+    }
+
+    .chat-header h2 {
+        font-size: 1rem;
+    }
+
+    .chat-container {
+        padding: 15px;
+        gap: 16px;
+    }
+
+    /* ขยายความกว้างกล่องข้อความแชตให้เต็มตามากขึ้นบนจอมือถือ */
+    .message {
+        max-width: 90%; 
+        gap: 10px;
+    }
+
+    .avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 0.85rem;
+    }
+
+    .message-content {
+        padding: 10px 14px;
+        font-size: 0.9rem;
+        border-radius: 12px;
+    }
+
+    /* ขยับช่องกรอกข้อความด้านล่างให้กระชับและพิมพ์ถนัดขึ้น */
+    .chat-footer {
+        padding: 10px 15px;
+    }
+
+    #user-input {
+        padding: 12px 50px 12px 16px;
+        font-size: 0.95rem;
+        border-radius: 20px; /* ทำมุมโค้งมนสไตล์แอปพลิเคชันแชตบนมือถือ */
+    }
+
+    #send-btn {
+        right: 10px;
+    }
+}
