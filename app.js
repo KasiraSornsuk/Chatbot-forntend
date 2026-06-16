@@ -1,5 +1,5 @@
 // ตรวจสอบและใส่ API Key ที่renderแล้ว
-const API_URL = 'https://chatbot-1-lqof.onrender.com';
+const API_URL = 'https://chatbot-1-lqof.onrender.com/api/chat';
 
 // เลือก DOM Elements
 const chatForm = document.getElementById('chat-form');
