@@ -1,6 +1,5 @@
-// ตรวจสอบและใส่ API Key ที่renderแล้ว
+// ✅ แก้ไขจุดที่ 1: เติมเส้นทาง API ให้ถูกต้องตั้งแต่ต้นทาง
 const API_URL = 'https://chatbot-1-lqof.onrender.com/api/chat';
-
 
 // เลือก DOM Elements
 const chatForm = document.getElementById('chat-form');
@@ -40,6 +39,7 @@ function appendMessage(sender, text) {
 }
 
 // --- ฟังก์ชันเรียกใช้ Gemini API ---
+// --- ฟังก์ชันเรียกใช้ Gemini API ---
 async function fetchGeminiResponse(userPrompt) {
     const contents = [...currentChatHistory, { role: "user", parts: [{ text: userPrompt }] }];
 
@@ -49,23 +49,22 @@ async function fetchGeminiResponse(userPrompt) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
                 contents: contents,
-                // ส่งโครงสร้างข้อความไปให้หลังบ้านดึงไปใช้ได้ง่ายๆ
-                systemInstruction: {
-                    parts: [{
-                        text: "คุณคือ Robot AI ผู้ช่วยอัจฉริยะที่สุภาพเรียบร้อย ตอบคำถามด้วยภาษาไทยที่ถูกต้อง เป็นทางการแต่นุ่มนวล ทุกครั้งที่ตอบคำถามที่มีเนื้อหาขนาดยาวหรือเป็นขั้นตอน ให้จัดเรียงเป็นหัวข้อ (Bullet points) และเว้นบรรทัดให้ชัดเจน อ่านง่าย ห้ามเขียนข้อความต่อกันเป็นพืดเด็ดขาด"
-                    }]
-                }
+                // ✅ แก้ให้เหลือแค่ Text ธรรมดา ส่งไปให้หลังบ้านดึงง่ายๆ
+                systemInstruction: "คุณคือ Robot AI ผู้ช่วยอัจฉริยะที่สุภาพเรียบร้อย ตอบคำถามด้วยภาษาไทยที่ถูกต้อง เป็นทางการแต่นุ่มนวล ทุกครั้งที่ตอบคำถามที่มีเนื้อหาขนาดยาวหรือเป็นขั้นตอน ให้จัดเรียงเป็นหัวข้อ (Bullet points) และเว้นบรรทัดให้ชัดเจน อ่านง่าย ห้ามเขียนข้อความต่อกันเป็นพืดเด็ดขาด"
             })
         });
 
-        if (!response.ok) throw new Error('API Response Error');
+        // ✅ ดึงเทคนิคจากภาพแนะนำ: ถ้าระบบตอบรับไม่สำเร็จ ให้แกะดู Error ลึกๆ ทันที
+        if (!response.ok) {
+            const errorDetails = await response.json().catch(() => ({}));
+            console.error("Gemini API Error Details:", errorDetails);
+            throw new Error(`API Response Error: ${response.status}`);
+        }
 
         const data = await response.json();
         
-        // ✅ แก้ไขจุดนี้: แกะคำตอบจากสเปกของไลบรารี @google/genai ใหม่
-        // หลังบ้านส่งกลับมาแบบ res.json(response) ซึ่งจะมีข้อความอยู่ที่ตัวแปร text โดยตรง
-        const replyText = data.text; 
-        return replyText;
+        // ✅ ปรับตัวแกะคำตอบให้ตรงกับสิ่งที่หลังบ้านส่งมา
+        return data.text;
 
     } catch (error) {
         console.error("Error connecting to Gemini API:", error);
