@@ -1,5 +1,6 @@
 // ตรวจสอบและใส่ API Key ที่renderแล้ว
 const API_URL = 'https://chatbot-1-lqof.onrender.com/api/chat';
+const API_URL = 'https://chatbot-1-lqof.onrender.com/api/chat';
 
 // เลือก DOM Elements
 const chatForm = document.getElementById('chat-form');
@@ -48,6 +49,7 @@ async function fetchGeminiResponse(userPrompt) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
                 contents: contents,
+                // ส่งโครงสร้างข้อความไปให้หลังบ้านดึงไปใช้ได้ง่ายๆ
                 systemInstruction: {
                     parts: [{
                         text: "คุณคือ Robot AI ผู้ช่วยอัจฉริยะที่สุภาพเรียบร้อย ตอบคำถามด้วยภาษาไทยที่ถูกต้อง เป็นทางการแต่นุ่มนวล ทุกครั้งที่ตอบคำถามที่มีเนื้อหาขนาดยาวหรือเป็นขั้นตอน ให้จัดเรียงเป็นหัวข้อ (Bullet points) และเว้นบรรทัดให้ชัดเจน อ่านง่าย ห้ามเขียนข้อความต่อกันเป็นพืดเด็ดขาด"
@@ -59,7 +61,10 @@ async function fetchGeminiResponse(userPrompt) {
         if (!response.ok) throw new Error('API Response Error');
 
         const data = await response.json();
-        const replyText = data.candidates[0].content.parts[0].text;
+        
+        // ✅ แก้ไขจุดนี้: แกะคำตอบจากสเปกของไลบรารี @google/genai ใหม่
+        // หลังบ้านส่งกลับมาแบบ res.json(response) ซึ่งจะมีข้อความอยู่ที่ตัวแปร text โดยตรง
+        const replyText = data.text; 
         return replyText;
 
     } catch (error) {
