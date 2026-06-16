@@ -1,6 +1,5 @@
-// 1. ตรวจสอบและใส่ API Key จริงของคุณที่นี่ (ต้องขึ้นต้นด้วย AIzaSy...)
-// โค้ดใหม่ที่ปรับปรุงแล้วใน app.js (Frontend)
-const API_URL = 'http://localhost:3000/api/chat';
+// ตรวจสอบและใส่ API Key ที่renderแล้ว
+const API_URL = 'https://chatbot-1-lqof.onrender.com';
 
 // เลือก DOM Elements
 const chatForm = document.getElementById('chat-form');
